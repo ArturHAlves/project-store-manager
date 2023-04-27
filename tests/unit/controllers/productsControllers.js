@@ -10,7 +10,7 @@ const productsService = require("../../../src/services/products.service");
 const {
   getAllMockProduts,
   getByIdMockProducts,
-} = require("../mocks/products.mock");
+} = require('./mocks/products.mock');
 
 describe("Testes de unidade do Controller de produtos", function () {
   describe("Testar getAllProducts", function () {
@@ -46,23 +46,22 @@ describe("Testes de unidade do Controller de produtos", function () {
       expect(res.status).to.be.have.been.calledWith(200);
       expect(res.json).to.be.have.been.calledWith(getByIdMockProducts);
     });
-    // it("Verificar se não existir um id invalido", async function () {
-    //   const res = {};
-    //   const req = { params: { id: 777 } };
+    it("Verificar se não existir um id invalido", async function () {
+      const res = {};
+      const req = { params: { id: 777 } };
 
-    //   res.status = sinon.stub().returns(res);
-    //   res.json = sinon.stub().returns();
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
 
-    //   sinon
-    //     .stub(productsService, "getProductById")
-    //     .resolves({ message: 'Product not found' });
+      sinon.stub(productsService, "getProductById").resolves(undefined);
 
-    //   await productsController.getProductById(req, res);
+      await productsController.getProductById(req, res);
 
-    //   expect(res.status).to.have.been.calledWith(404);
-
-    // });
-
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith({
+        message: "Product not found",
+      });
+    });
   });
 
   afterEach(() => sinon.restore());

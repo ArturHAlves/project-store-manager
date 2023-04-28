@@ -1,4 +1,8 @@
 // Validate Products
-const validateProductsName = require('./validateProductsName');
+const validateProductsName = require('./validateProducts');
 
-module.exports = { validateProductsName };
+// Validate Sales
+const validateSales = require('./validateSales');
+const validateProductsId = require('./validateTest');
+
+module.exports = { validateProductsName, validateSales, validateProductsId };

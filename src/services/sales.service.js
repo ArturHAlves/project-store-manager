@@ -1,8 +1,9 @@
 const salesModel = require('../models/sales.model');
 
-const registerSales = async (sale) => {
-  const sales = await salesModel.registerSales(sale);
-  return sales;
-};
+const registerSales = async (sale) => salesModel.registerSales(sale);
 
-module.exports = { registerSales };
+const getAllSales = async () => salesModel.getAllSales();
+
+const getSalesById = async (saleId) => salesModel.getSalesById(saleId);
+
+module.exports = { registerSales, getAllSales, getSalesById };

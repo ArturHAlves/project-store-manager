@@ -6,4 +6,12 @@ const getProductById = async (Productid) => productsModel.getProductById(Product
 
 const createProduct = async (product) => productsModel.createProduct(product);
 
-module.exports = { getAllProducts, getProductById, createProduct };
+const updateProduct = async (id, name) => {
+  await productsModel.updateProduct(id, name);
+
+  return { id, name };
+};
+
+module.exports = {
+  getAllProducts, getProductById, createProduct, updateProduct,
+};

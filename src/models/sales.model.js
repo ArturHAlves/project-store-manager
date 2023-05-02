@@ -43,4 +43,11 @@ ORDER BY sp.sale_id ASC , sp.product_id ASC;`, [salesId],
 return sales;
 };
 
-module.exports = { registerSales, getAllSales, getSalesById };
+const deleteSale = async (saleId) => {
+  const [{ affectedRows }] = await connection.execute(
+    'DELETE FROM sales WHERE id = ?', [saleId],
+  );
+  return affectedRows;
+};
+
+module.exports = { registerSales, getAllSales, getSalesById, deleteSale };

@@ -1,5 +1,5 @@
 const express = require('express');
-const { validateSales, validateProductsId } = require('../middlewares');
+const { validateSales, validateProductsId, validateSaleNotFound } = require('../middlewares');
 const salesController = require('../controllers/sales.controller');
 
 const salesRoute = express.Router();
@@ -8,6 +8,8 @@ salesRoute.post('/', validateSales, validateProductsId, salesController.register
 
 salesRoute.get('/', salesController.getAllSales);
 
-salesRoute.get('/:id', salesController.getSalesById);
+salesRoute.get('/:id', validateSaleNotFound, salesController.getSalesById);
+
+salesRoute.delete('/:id', validateSaleNotFound, salesController.deleteSale);
 
 module.exports = salesRoute;

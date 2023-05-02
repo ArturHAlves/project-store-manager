@@ -55,6 +55,7 @@ describe("Teste de unidade de controller do sales", function () {
       await salesController.getSalesById(req, res);
 
       expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith({ message: "Sale not found" });
     });
   });
 

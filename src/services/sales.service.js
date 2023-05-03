@@ -8,4 +8,7 @@ const getSalesById = async (saleId) => salesModel.getSalesById(saleId);
 
 const deleteSale = async (saleId) => salesModel.deleteSale(saleId);
 
-module.exports = { registerSales, getAllSales, getSalesById, deleteSale };
+const updateProduct = async (saleId, productId, quantity) =>
+  salesModel.updateSale(saleId, productId, quantity);
+
+module.exports = { registerSales, getAllSales, getSalesById, deleteSale, updateProduct };

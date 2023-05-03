@@ -28,4 +28,21 @@ const deleteSale = async (req, res) => {
   return res.status(204).end();
 };
 
-module.exports = { registerSales, getAllSales, getSalesById, deleteSale };
+const updateSale = async (req, res) => {
+  const { id } = req.params;
+  const saleBody = req.body;
+
+  const sales = await Promise.all(
+    saleBody.map((sale) => salesService.updateProduct(id, sale.productId, sale.quantity)),
+  );
+
+  return res.status(200).json({ saleId: +id, itemsUpdated: sales });
+};
+
+module.exports = {
+  registerSales,
+  getAllSales,
+  getSalesById,
+  deleteSale,
+  updateSale,
+};

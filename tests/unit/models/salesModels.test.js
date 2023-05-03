@@ -17,6 +17,14 @@ describe("Testes de unidade do model de sales", function () {
       expect(sales).to.be.an("array");
       expect(sales).to.have.length(3);
     });
+    it("Verificar caso não tenha o retorno dos produtos", async function () {
+      sinon.stub(connection, "execute").resolves([]);
+
+      const sales = await salesModels.getAllSales();
+
+      expect(sales).to.not.deep.equal(getAllSalesMock);
+      expect(sales).to.be.equal(undefined);
+    });
   });
 
   describe("Testar o getSalesById", function () {

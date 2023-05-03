@@ -10,7 +10,8 @@ const productsService = require("../../../src/services/products.service");
 const {
   getAllMockProduts,
   getByIdMockProducts,
-} = require('./mocks/products.mock');
+  deleteProduct,
+} = require("./mocks/products.mock");
 
 describe("Testes de unidade do Controller de produtos", function () {
   describe("Testar getAllProducts", function () {
@@ -46,24 +47,36 @@ describe("Testes de unidade do Controller de produtos", function () {
       expect(res.status).to.be.have.been.calledWith(200);
       expect(res.json).to.be.have.been.calledWith(getByIdMockProducts);
     });
-    // it("Verificar se não existir um id invalido", async function () {
-    //   const res = {};
-    //   const req = { params: { id: 777 } };
+  });
 
-    //   res.status = sinon.stub().returns(res);
-    //   res.json = sinon.stub().returns();
+  describe("Testar 'createProduct'", function () {
+    it("Verificar se a resposta está correta", async function () {
+      const res = {};
+      const req = { body: { name: "produtoXXX" } };
 
-    //   sinon.stub(productsService, "getProductById").resolves(undefined);
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
 
-    //   const result = await productsController.getProductById(req, res);
+      await productsController.createProduct(req, res);
 
-    //   console.log(result);
+      expect(res.status).to.be.have.been.calledWith(201);
+    });
+  });
 
-    //   expect(res.status).to.have.been.calledWith(404);
-    //   // expect(res.json).to.have.been.calledWith({
-    //   //   message: 'Product not found',
-    //   // });
-    // });
+  describe('Testar "deleteProduct"', function () {
+    it("Verificar se a resposta está correta", async function () {
+      const res = {};
+      const req = { params: { id: 1 } };
+
+      sinon.stub(productsService, "deleteProduct").resolves(deleteProduct);
+
+      res.status = sinon.stub().returns(res);
+      res.end = sinon.stub().returns();
+
+      await productsController.deleteProduct(req, res);
+
+      expect(res.status).to.have.been.calledWith(204);
+    });
   });
 
   afterEach(() => sinon.restore());

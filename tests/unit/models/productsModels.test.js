@@ -6,6 +6,8 @@ const connection = require("../../../src/models/connection");
 const {
   getAllMockProduts,
   getByIdMockProducts,
+  newProduct,
+  deleteProduct,
 } = require("./mocks/products.mock");
 
 describe("Testes de unidade do model de produtos", function () {
@@ -37,6 +39,28 @@ describe("Testes de unidade do model de produtos", function () {
       const products = await produtcsModel.getProductById(1);
 
       expect(products).to.deep.equal(getByIdMockProducts);
+    });
+  });
+
+  describe('Testar "createProduct"', function () {
+    it("Verificar se está cadastrando um produto", async function () {
+      sinon.stub(connection, "execute").resolves([{ insertId: 4 }]);
+
+      const products = await produtcsModel.createProduct("produtoXXX");
+
+      expect(products).to.deep.equal(newProduct);
+      expect(products).to.contain.keys("id", "name");
+      expect(products.id).to.equal(4);
+    });
+  });
+
+  describe('Testar "deleteProduct"', function () {
+    it("Verificar se está deletando um produto", async function () {
+      sinon.stub(connection, "execute").resolves([deleteProduct]);
+
+      const products = await produtcsModel.deleteProduct(1);
+
+      expect(products).to.be.equal(1);
     });
   });
 

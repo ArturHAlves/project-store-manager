@@ -22,6 +22,8 @@ services:
       MYSQL_HOST: db # Nome do service logo abaixo
       PORT: '3001'
       HOST: store_manager
+    # env_file:
+    #   - .env
     networks:
       - store_manager_net
 

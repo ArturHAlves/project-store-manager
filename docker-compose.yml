@@ -19,7 +19,7 @@ services:
     environment:
       MYSQL_USER: root
       MYSQL_PASSWORD: password
-      MYSQL_HOST: db # Nome do service logo abaixo
+      MYSQL_HOST: db
       PORT: '3001'
       HOST: store_manager
     # env_file:
